@@ -1,0 +1,90 @@
+plugins {
+    id 'java-library'
+    id 'eclipse'
+    id 'idea'
+    id 'net.neoforged.moddev' version '2.0.78'
+}
+
+version = mod_version
+group = mod_group_id
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'LuckPerms'
+        url = 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+    // Simple Voice Chat API
+    maven { url = 'https://maven.maxhenkel.de/repository/public' }
+}
+
+base {
+    archivesName = mod_id
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+    withSourcesJar()
+}
+
+neoForge {
+    version = neoforge_version
+
+    parchment {
+        mappingsVersion = '2024.11.17'
+        minecraftVersion = '1.21.1'
+    }
+
+    runs {
+        server {
+            server()
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            systemProperty 'forge.logging.console.level', 'debug'
+            programArguments.addAll '--nogui'
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+dependencies {
+    // LuckPerms — optional mod on the server; API only at compile time.
+    compileOnly('net.luckperms:api:5.4') {
+        transitive = false
+    }
+    // GoidaVote — optional mod for /votemute. Provided at runtime by the installed mod;
+    // every reference is isolated behind a ModList.isLoaded("goidavote") guard.
+    // Version-agnostic: pick up whatever goidavote-*.jar was built next door (excluding the
+    // sources/javadoc artifacts), so bumping GoidaVote's version doesn't break this build.
+    compileOnly fileTree(dir: '../GoidaVote/build/libs',
+            include: 'goidavote-*.jar',
+            exclude: ['*-sources.jar', '*-javadoc.jar'])
+    // Simple Voice Chat API — optional mod for voice mute. Platform-neutral API; the hook is
+    // discovered by SVC via META-INF/services, so nothing here is referenced when SVC is absent.
+    compileOnly 'de.maxhenkel.voicechat:voicechat-api:2.5.0'
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    var replaceProperties = [
+            minecraft_version   : minecraft_version,
+            neoforge_version    : neoforge_version,
+            mod_id              : mod_id,
+            mod_name            : mod_name,
+            mod_version         : mod_version,
+            mod_authors         : mod_authors,
+            mod_description     : mod_description,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}

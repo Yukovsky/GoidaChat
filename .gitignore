@@ -1,0 +1,33 @@
+# Gradle / build
+.gradle/
+build/
+out/
+run/
+runs/
+*.class
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+bin/
+
+# Logs / crash reports
+*.log
+crash-*.txt
+build_log.txt
+message*.txt
+
+# Internal docs / AI tooling — not published
+ТЗ.md
+PUBLISHING_RULES.md
+.claude/
+memory/
+
+# Windows reserved device names
+nul
