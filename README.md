@@ -2,11 +2,11 @@
 
 # GoidaChat
 
-[![Latest Release](https://img.shields.io/github/v/release/goidacraft/GoidaChat?style=flat-square&label=latest&color=brightgreen)](https://github.com/goidacraft/GoidaChat/releases)
+[![Latest Release](https://img.shields.io/github/v/release/Yukovsky/GoidaChat?style=flat-square&label=latest&color=brightgreen)](https://github.com/Yukovsky/GoidaChat/releases)
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-blue?style=flat-square)](https://www.minecraft.net/)
 [![NeoForge](https://img.shields.io/badge/NeoForge-21.1.228+-orange?style=flat-square)](https://neoforged.net/)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square)](LICENSE)
-[![Build](https://img.shields.io/github/actions/workflow/status/goidacraft/GoidaChat/build.yml?style=flat-square)](https://github.com/goidacraft/GoidaChat/actions)
+[![Build](https://img.shields.io/github/actions/workflow/status/Yukovsky/GoidaChat/build.yml?style=flat-square)](https://github.com/Yukovsky/GoidaChat/actions)
 
 **Server-side chat manager for NeoForge 1.21.1 — routing, moderation, and auto-mod in one mod.**
 
@@ -14,8 +14,8 @@ Local and global chat, private messages, smart mentions, anti-spam, auto-moderat
 
 | Links | |
 |---|---|
-| Issues | [github.com/goidacraft/GoidaChat/issues](https://github.com/goidacraft/GoidaChat/issues) |
-| Releases | [github.com/goidacraft/GoidaChat/releases](https://github.com/goidacraft/GoidaChat/releases) |
+| Issues | [github.com/Yukovsky/GoidaChat/issues](https://github.com/Yukovsky/GoidaChat/issues) |
+| Releases | [github.com/Yukovsky/GoidaChat/releases](https://github.com/Yukovsky/GoidaChat/releases) |
 
 </div>
 
@@ -92,7 +92,7 @@ GoidaChat replaces vanilla `/msg`, `/tell`, `/w`, `/teammsg`, `/tm`, `/ban`, `/b
 
 ## Installation
 
-1. Download the latest jar from [Releases](https://github.com/goidacraft/GoidaChat/releases).
+1. Download the latest jar from [Releases](https://github.com/Yukovsky/GoidaChat/releases).
 2. Place it in the `mods/` folder of your NeoForge server.
 3. Start the server — config is created at `config/goidachat-server.toml`.
 
@@ -186,7 +186,7 @@ Duration format: `10m`, `1h`, `2d`, `permanent`.
 ## Building from Source
 
 ```bash
-git clone https://github.com/goidacraft/GoidaChat.git
+git clone https://github.com/Yukovsky/GoidaChat.git
 cd GoidaChat
 ./gradlew build
 ```
