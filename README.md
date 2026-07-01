@@ -5,7 +5,7 @@
 [![Latest Release](https://img.shields.io/github/v/release/Yukovsky/GoidaChat?style=flat-square&label=latest&color=brightgreen)](https://github.com/Yukovsky/GoidaChat/releases)
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-blue?style=flat-square)](https://www.minecraft.net/)
 [![NeoForge](https://img.shields.io/badge/NeoForge-21.1.228+-orange?style=flat-square)](https://neoforged.net/)
-[![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square)](LICENSE)
+[![License](https://img.shields.io/badge/License-Apache--2.0-lightgrey?style=flat-square)](LICENSE)
 [![Build](https://img.shields.io/github/actions/workflow/status/Yukovsky/GoidaChat/build.yml?style=flat-square)](https://github.com/Yukovsky/GoidaChat/actions)
 
 **Server-side chat manager for NeoForge 1.21.1 — routing, moderation, and auto-mod in one mod.**
@@ -197,4 +197,4 @@ Output: `build/libs/goidachat-<version>.jar`. Requires Java 21.
 
 ## License
 
-[MIT License](LICENSE)
+[Apache License 2.0](LICENSE)
