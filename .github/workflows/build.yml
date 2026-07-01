@@ -14,8 +14,14 @@ jobs:
       contents: write        # required for gh release create
 
     steps:
-      - name: Checkout
+      - name: Checkout GoidaChat
         uses: actions/checkout@v4
+
+      - name: Checkout GoidaVote (compile-only dependency for /votemute)
+        uses: actions/checkout@v4
+        with:
+          repository: Yukovsky/GoidaVote
+          path: ../GoidaVote
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -25,7 +31,13 @@ jobs:
           cache: gradle
 
       - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: |
+          chmod +x gradlew
+          chmod +x ../GoidaVote/gradlew
+
+      - name: Build GoidaVote
+        run: ./gradlew build
+        working-directory: ../GoidaVote
 
       - name: Build
         run: ./gradlew build

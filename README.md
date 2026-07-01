@@ -185,10 +185,13 @@ Duration format: `10m`, `1h`, `2d`, `permanent`.
 
 ## Building from Source
 
+GoidaChat compiles against the [GoidaVote](https://github.com/Yukovsky/GoidaVote) API (for `/votemute`), so it must be checked out as a sibling directory before building:
+
 ```bash
 git clone https://github.com/Yukovsky/GoidaChat.git
-cd GoidaChat
-./gradlew build
+git clone https://github.com/Yukovsky/GoidaVote.git
+cd GoidaVote && ./gradlew build && cd ..
+cd GoidaChat && ./gradlew build
 ```
 
 Output: `build/libs/goidachat-<version>.jar`. Requires Java 21.
