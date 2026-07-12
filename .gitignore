@@ -23,10 +23,8 @@ crash-*.txt
 build_log.txt
 message*.txt
 
-# Internal docs / AI tooling — not published
 ТЗ.md
 PUBLISHING_RULES.md
-.claude/
 memory/
 
 # Windows reserved device names
