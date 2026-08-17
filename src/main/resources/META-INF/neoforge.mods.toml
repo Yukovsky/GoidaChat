@@ -33,6 +33,15 @@ issueTrackerURL = "https://github.com/Yukovsky/GoidaChat/issues"
     ordering = "NONE"
     side = "SERVER"
 
+# Optional — GoidaRanks is the unified prefix/suffix source. When present it is consulted first for
+# chat prefixes/suffixes (via reflection over GoidaRanksAPI). Load it BEFORE us so its API is ready.
+[[dependencies.goidachat]]
+    modId = "goidaranks"
+    type = "optional"
+    versionRange = "[1.0,)"
+    ordering = "AFTER"
+    side = "SERVER"
+
 [[dependencies.goidachat]]
     modId = "hwid"
     type = "optional"
@@ -53,5 +62,14 @@ issueTrackerURL = "https://github.com/Yukovsky/GoidaChat/issues"
 [[dependencies.goidachat]]
     modId = "voicechat"
     type = "optional"
+    ordering = "AFTER"
+    side = "SERVER"
+
+# Optional — /msg and /r refuse vanished targets (via reflection over Vanishmod's VanishUtil), so
+# typing a vanished player's name manually can't bypass vanish like the rest of the server already does.
+[[dependencies.goidachat]]
+    modId = "vmod"
+    type = "optional"
+    versionRange = "[1,)"
     ordering = "AFTER"
     side = "SERVER"

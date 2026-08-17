@@ -9,6 +9,7 @@ import com.goidacraft.goidachat.data.PunishmentStorage;
 import com.goidacraft.goidachat.logging.ChatLogger;
 import com.goidacraft.goidachat.util.ColorUtil;
 import com.goidacraft.goidachat.util.LuckPermsUtil;
+import com.goidacraft.goidachat.util.VanishCompat;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.minecraft.commands.CommandSourceStack;
@@ -36,7 +37,7 @@ public class MsgCommand {
 
     /** Отправляет ЛС с проверками (мут/спам/отдых/игнор), соцшпионом и логированием. */
     static int sendPm(ServerPlayer sender, ServerPlayer target, String rawMessage) {
-        if (target == null) {
+        if (target == null || VanishCompat.isVanished(target)) {
             sender.sendSystemMessage(ColorUtil.parse("&cИгрок не найден или не в сети."));
             return 0;
         }
