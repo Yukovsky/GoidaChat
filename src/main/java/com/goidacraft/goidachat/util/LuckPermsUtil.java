@@ -43,14 +43,21 @@ public final class LuckPermsUtil {
         return null;
     }
 
-    /** Префикс ника: сначала LuckPerms, при пустом — косметика FTB Ranks (склейка рангов). */
+    /**
+     * Префикс ника. Порядок: GoidaRanks (единый источник косметики) → LuckPerms → косметика FTB Ranks.
+     * GoidaRanks идёт первым, т.к. он разрешает префикс/суффикс независимо по весам поверх рангов FTB.
+     */
     public static String getPrefix(ServerPlayer player) {
+        String gr = GoidaRanksCosmetics.prefix(player);
+        if (!gr.isEmpty()) return gr;
         String lp = meta(player, true);
         return !lp.isEmpty() ? lp : FtbRanksCosmetics.prefix(player);
     }
 
-    /** Суффикс ника: сначала LuckPerms, при пустом — косметика FTB Ranks (склейка рангов). */
+    /** Суффикс ника. Порядок: GoidaRanks → LuckPerms → косметика FTB Ranks. */
     public static String getSuffix(ServerPlayer player) {
+        String gr = GoidaRanksCosmetics.suffix(player);
+        if (!gr.isEmpty()) return gr;
         String lp = meta(player, false);
         return !lp.isEmpty() ? lp : FtbRanksCosmetics.suffix(player);
     }
