@@ -6,6 +6,7 @@ import com.goidacraft.goidachat.data.IgnoreStorage;
 import com.goidacraft.goidachat.logging.ChatLogger;
 import com.goidacraft.goidachat.util.ColorUtil;
 import com.goidacraft.goidachat.util.LuckPermsUtil;
+import com.goidacraft.goidachat.util.VanishCompat;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -33,7 +34,7 @@ public final class ChatRouter {
             if (IgnoreStorage.isIgnoredAll(p.getUUID(), sender.getUUID())) continue;
             p.sendSystemMessage(formatted);
             recipients.add(p);
-            heardBySomeoneElse = true;
+            if (!VanishCompat.isVanished(p)) heardBySomeoneElse = true;
         }
 
         if (!heardBySomeoneElse) {
