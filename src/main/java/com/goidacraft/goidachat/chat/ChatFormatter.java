@@ -17,15 +17,15 @@ public final class ChatFormatter {
     private ChatFormatter() {}
 
     public static MutableComponent formatLocal(ServerPlayer sender, MutableComponent message) {
-        return buildChat(PluginConfig.localFormat(), sender, message);
+        return buildChat(PluginConfig.localFormat(), sender, message, true);
     }
 
     public static MutableComponent formatGlobal(ServerPlayer sender, MutableComponent message) {
-        return buildChat(PluginConfig.globalFormat(), sender, message);
+        return buildChat(PluginConfig.globalFormat(), sender, message, true);
     }
 
     public static MutableComponent formatAdmin(ServerPlayer sender, MutableComponent message) {
-        return buildChat(PluginConfig.adminFormat(), sender, message);
+        return buildChat(PluginConfig.adminFormat(), sender, message, false);
     }
 
     public static MutableComponent formatPmOut(ServerPlayer sender, ServerPlayer target, String message) {
@@ -44,10 +44,12 @@ public final class ChatFormatter {
                 .append(Component.literal(message));
     }
 
-    private static MutableComponent buildChat(String format, ServerPlayer sender, MutableComponent message) {
+    private static MutableComponent buildChat(String format, ServerPlayer sender, MutableComponent message,
+                                               boolean maskVanished) {
         String prefix = LuckPermsUtil.getPrefix(sender);
         String suffix = LuckPermsUtil.getSuffix(sender);
         String name   = sender.getGameProfile().getName();
+        boolean vanished = maskVanished && VanishCompat.isVanished(sender);
 
         String[] parts = format.split("%player%", 2);
 
@@ -56,11 +58,23 @@ public final class ChatFormatter {
                 .replace("%prefix%", prefix)
                 .replace("%suffix%", suffix)));
 
-        Style nickStyle = Style.EMPTY
-                .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + name + " "))
-                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                        ColorUtil.parse("&7Написать &e" + name)));
-        result.append(Component.literal(name).withStyle(nickStyle));
+        String nickText;
+        Style nickStyle;
+        if (vanished) {
+            // Ник вейнш-игрока не выбивается и в обычном чате: показываем той же длины заглушку
+            // без /msg-подсказки, ни в тексте, ни в наведении реальный ник не всплывает.
+            nickText = "X".repeat(name.length());
+            nickStyle = Style.EMPTY.withObfuscated(true)
+                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                            ColorUtil.parse("&cЭтому игроку нельзя написать")));
+        } else {
+            nickText = name;
+            nickStyle = Style.EMPTY
+                    .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + name + " "))
+                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                            ColorUtil.parse("&7Написать &e" + name)));
+        }
+        result.append(Component.literal(nickText).withStyle(nickStyle));
 
         if (parts.length > 1) {
             String[] msgParts = parts[1].split("%message%", 2);

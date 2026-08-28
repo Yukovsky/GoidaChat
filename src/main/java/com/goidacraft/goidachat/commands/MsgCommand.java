@@ -28,10 +28,6 @@ public class MsgCommand {
                                     ServerPlayer sender = ctx.getSource().getPlayerOrException();
                                     ServerPlayer target = ctx.getSource().getServer().getPlayerList()
                                             .getPlayerByName(StringArgumentType.getString(ctx, "player"));
-                                    // Ник вейнш-игрока нигде не выбивается — нельзя достучаться до него,
-                                    // даже вручную набрав правильное имя. /r это не затрагивает: там
-                                    // собеседник уже известен из сессии, а не введён руками.
-                                    if (target != null && VanishCompat.isVanished(target)) target = null;
                                     return sendPm(sender, target, StringArgumentType.getString(ctx, "message"));
                                 }))));
 
@@ -41,7 +37,9 @@ public class MsgCommand {
 
     /** Отправляет ЛС с проверками (мут/спам/отдых/игнор), соцшпионом и логированием. */
     static int sendPm(ServerPlayer sender, ServerPlayer target, String rawMessage) {
-        if (target == null) {
+        // Вейнш-игрок нигде не выбивается — ему нельзя написать ни вручную набрав ник в /msg,
+        // ни ответом через /r на его сообщение.
+        if (target == null || VanishCompat.isVanished(target)) {
             sender.sendSystemMessage(ColorUtil.parse("&cИгрок не найден или не в сети."));
             return 0;
         }
