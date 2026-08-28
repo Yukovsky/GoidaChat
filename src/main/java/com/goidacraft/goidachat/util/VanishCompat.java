@@ -1,5 +1,6 @@
 package com.goidacraft.goidachat.util;
 
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 import java.lang.reflect.Method;
@@ -37,5 +38,16 @@ public final class VanishCompat {
         } catch (Throwable ignored) {
             return false;
         }
+    }
+
+    /**
+     * Ник игрока для показа в чате: обычный текст, либо, если игрок в Vanish — заглушка той же
+     * длины с кодом форматирования {@code &k} (obfuscated). ЛС всё равно можно вести (через /r
+     * сессия уже установлена), но собеседник не должен прочитать настоящий ник вейнш-игрока ни в
+     * своей копии сообщения, ни в присланной.
+     */
+    public static String displayName(ServerPlayer player) {
+        String name = player.getGameProfile().getName();
+        return isVanished(player) ? "&k" + "X".repeat(name.length()) : name;
     }
 }

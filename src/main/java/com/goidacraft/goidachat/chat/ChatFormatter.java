@@ -3,6 +3,7 @@ package com.goidacraft.goidachat.chat;
 import com.goidacraft.goidachat.config.PluginConfig;
 import com.goidacraft.goidachat.util.ColorUtil;
 import com.goidacraft.goidachat.util.LuckPermsUtil;
+import com.goidacraft.goidachat.util.VanishCompat;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -28,12 +29,12 @@ public final class ChatFormatter {
     }
 
     public static MutableComponent formatPmOut(ServerPlayer sender, ServerPlayer target, String message) {
-        return ColorUtil.parse("&7[&eЯ &7→ &e" + target.getGameProfile().getName() + "&7] &f")
+        return ColorUtil.parse("&7[&eЯ &7→ &e" + VanishCompat.displayName(target) + "&7] &f")
                 .append(Component.literal(message));
     }
 
     public static MutableComponent formatPmIn(ServerPlayer sender, ServerPlayer target, String message) {
-        return ColorUtil.parse("&7[&e" + sender.getGameProfile().getName() + " &7→ &eЯ&7] &f")
+        return ColorUtil.parse("&7[&e" + VanishCompat.displayName(sender) + " &7→ &eЯ&7] &f")
                 .append(Component.literal(message));
     }
 
