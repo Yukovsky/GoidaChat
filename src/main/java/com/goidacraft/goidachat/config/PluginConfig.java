@@ -57,6 +57,9 @@ public final class PluginConfig {
     // ---- logging ----
     public static int logRetentionDays() { return GoidaChatConfig.LOG_RETENTION_DAYS.get(); }
 
+    // ---- vanish ----
+    public static boolean vanishHideEnabled() { return GoidaChatConfig.VANISH_HIDE_ENABLED.get(); }
+
     private static List<String> copy(List<? extends String> src) {
         return src == null ? List.of() : new ArrayList<>(src);
     }

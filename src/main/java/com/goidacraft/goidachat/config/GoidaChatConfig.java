@@ -63,6 +63,9 @@ public final class GoidaChatConfig {
     // ---- logging ----
     public static final ModConfigSpec.IntValue LOG_RETENTION_DAYS;
 
+    // ---- vanish ----
+    public static final ModConfigSpec.BooleanValue VANISH_HIDE_ENABLED;
+
     static {
         BUILDER.push("chat");
         LOCAL_RADIUS  = BUILDER.comment("Radius in blocks for local chat")
@@ -156,6 +159,13 @@ public final class GoidaChatConfig {
         BUILDER.push("logging");
         LOG_RETENTION_DAYS = BUILDER.comment("How many days to keep chat logs")
                 .defineInRange("retentionDays", 7, 1, 365);
+        BUILDER.pop();
+
+        BUILDER.push("vanish");
+        VANISH_HIDE_ENABLED = BUILDER.comment(
+                "Hide vanished (Vanishmod) players: block PMs/replies to them and mask their "
+                + "nickname with a fixed-length obfuscated placeholder in local/global chat")
+                .define("hideVanishedPlayers", true);
         BUILDER.pop();
 
         SPEC = BUILDER.build();

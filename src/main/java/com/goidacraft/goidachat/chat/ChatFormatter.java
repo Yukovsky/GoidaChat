@@ -63,7 +63,7 @@ public final class ChatFormatter {
         if (vanished) {
             // Ник вейнш-игрока не выбивается и в обычном чате: показываем той же длины заглушку
             // без /msg-подсказки, ни в тексте, ни в наведении реальный ник не всплывает.
-            nickText = "X".repeat(name.length());
+            nickText = VanishCompat.maskedNickname();
             nickStyle = Style.EMPTY.withObfuscated(true)
                     .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                             ColorUtil.parse("&cЭтому игроку нельзя написать")));
