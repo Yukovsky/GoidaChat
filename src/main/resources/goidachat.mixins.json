@@ -1,0 +1,9 @@
+{
+  "required": false,
+  "package": "com.goidacraft.goidachat.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "mixins": [
+    "tab.MixinNeoForgeTabPlayer"
+  ]
+}

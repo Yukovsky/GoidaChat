@@ -3,6 +3,9 @@ loaderVersion = "[4,)"
 license = "Apache-2.0"
 issueTrackerURL = "https://github.com/Yukovsky/GoidaChat/issues"
 
+[[mixins]]
+    config = "goidachat.mixins.json"
+
 [[mods]]
     modId = "${mod_id}"
     version = "${mod_version}"
@@ -73,3 +76,11 @@ issueTrackerURL = "https://github.com/Yukovsky/GoidaChat/issues"
     versionRange = "[1,)"
     ordering = "AFTER"
     side = "SERVER"
+
+# Optional — TAB integration via mixin fixes NeoForgeTabPlayer.isVanished0() so vanished players aren't leaked in %online%.
+[[dependencies.goidachat]]
+    modId = "tab"
+    type = "optional"
+    ordering = "NONE"
+    side = "SERVER"
+
