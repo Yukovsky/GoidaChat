@@ -28,7 +28,7 @@ Local and global chat, private messages, smart mentions, anti-spam, auto-moderat
 - **Local chat** (default) — radius-based, same dimension only; sender is notified if no one was in range
 - **Global chat** — triggered by a leading `!`; color-coded by sender dimension
 - **Admin chat** (`/ac`) — visible only to staff with the chat permission
-- **Private messages** — `/msg`, `/tell`, `/w`, `/r`; click a player's name in chat to auto-fill `/msg <name>`
+- **Private messages** — `/msg`, `/tell`, `/w`, `/whisper`, `/m`, `/t`, `/pm`, `/r`, `/reply`; click a player's name in chat to auto-fill `/msg <name>`
 - **Social Spy** — staff can opt in to see all private messages server-wide
 - **Smart mentions** — exact nickname match, no `@` required; mentioned name is highlighted, with a configurable sound players can mute for themselves
 
@@ -86,7 +86,7 @@ MuteApi.isMutedBy(uuid, mutedBy);
 | Java | 21 |
 | Side | Server only |
 
-GoidaChat replaces vanilla `/msg`, `/tell`, `/w`, `/teammsg`, `/tm`, `/ban`, `/ban-ip`, `/banlist`, `/pardon`, `/pardon-ip`, and `/kick` with its own implementations.
+GoidaChat replaces vanilla `/msg`, `/tell`, `/w`, `/teammsg`, `/tm`, `/ban`, `/ban-ip`, `/banlist`, `/pardon`, `/pardon-ip`, and `/kick` with its own implementations, and supports `/whisper`, `/m`, `/t`, `/pm`, `/r`, `/reply`.
 
 ---
 
@@ -159,8 +159,8 @@ If you're migrating from the legacy GoidaChat **plugin**, data files (`bans.json
 
 | Command | Permission (OP fallback) | Purpose |
 |---|---|---|
-| `/msg`, `/tell`, `/w` `<player> <text>` | — | Send a private message |
-| `/r <text>` | — | Reply to the last sender |
+| `/msg`, `/tell`, `/w`, `/whisper`, `/m`, `/t`, `/pm` `<player> <text>` | — | Send a private message |
+| `/r`, `/reply` `<text>` | — | Reply to the last sender |
 | `/ignore <player> [pm\|all]` | — | Block PMs or everything from a player (default `pm`) |
 | `/unignore <player>` | — | Remove an ignore |
 | `/togglemention` | — | Mute your own mention sound |

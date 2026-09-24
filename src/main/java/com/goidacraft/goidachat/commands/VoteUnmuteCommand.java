@@ -2,6 +2,7 @@ package com.goidacraft.goidachat.commands;
 
 import com.goidacraft.goidachat.GoidaChat;
 import com.goidacraft.goidachat.data.PlayerSessionCache;
+import com.goidacraft.goidachat.util.VanishCompat;
 import com.goidacraft.goidachat.data.PunishmentStorage;
 import com.goidacraft.goidachat.vote.VoteMuteManager;
 import com.mojang.brigadier.CommandDispatcher;
@@ -37,7 +38,11 @@ public class VoteUnmuteCommand {
 
         String targetName = StringArgumentType.getString(ctx, "player");
         UUID targetId = PlayerSessionCache.getUuid(targetName);
-        if (targetId == null) { CommandUtil.msg(source, "&cИгрок не в сети."); return 0; }
+        ServerPlayer target = targetId != null && source.getServer() != null ? source.getServer().getPlayerList().getPlayer(targetId) : null;
+        if (targetId == null || (target != null && VanishCompat.isVanished(target, initiator))) {
+            CommandUtil.msg(source, "&cИгрок не в сети.");
+            return 0;
+        }
 
         if (PunishmentStorage.getMute(targetId) == null) {
             CommandUtil.msg(source, "&cИгрок &e" + targetName + " &cне заглушён.");

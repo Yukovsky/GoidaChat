@@ -10,9 +10,9 @@ public class CommandRegistrar {
     public void onRegisterCommands(RegisterCommandsEvent event) {
         var dispatcher = event.getDispatcher();
 
-        // Убираем ванильные команды, чтобы наши одноимённые версии были основными.
+        // Убираем ванильные и модовые команды, чтобы наши одноимённые версии были основными.
         VanillaCommandUtil.remove(dispatcher,
-                "msg", "tell", "w", "teammsg", "tm",
+                "msg", "tell", "w", "whisper", "m", "t", "pm", "r", "reply", "teammsg", "tm",
                 "ban", "ban-ip", "banlist", "pardon", "pardon-ip", "kick");
 
         // Чат / личные сообщения

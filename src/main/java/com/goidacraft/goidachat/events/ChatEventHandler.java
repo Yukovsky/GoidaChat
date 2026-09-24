@@ -23,9 +23,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ChatEventHandler {
 
-    /** Ванильные «чат-команды», которые должны быть запрещены замученному игроку. */
+    /** Ванильные и модовые «чат-команды», которые должны быть запрещены замученному игроку. */
     private static final Set<String> MUTED_BLOCKED_COMMANDS =
-            Set.of("me", "say", "msg", "tell", "w", "teammsg", "tm", "r", "ac");
+            Set.of("me", "say", "msg", "tell", "w", "whisper", "m", "t", "pm", "teammsg", "tm", "r", "reply", "ac");
 
     // Кулдаун записи нарушений по типу: не чаще 1 раза в 30 сек на игрока+тип
     private static final ConcurrentHashMap<String, Long> violationCooldowns = new ConcurrentHashMap<>();
@@ -135,6 +135,9 @@ public class ChatEventHandler {
         if (input.startsWith("/")) input = input.substring(1);
         int space = input.indexOf(' ');
         String command = (space >= 0 ? input.substring(0, space) : input).toLowerCase();
+        if (command.startsWith("minecraft:")) {
+            command = command.substring("minecraft:".length());
+        }
 
         if (MUTED_BLOCKED_COMMANDS.contains(command) && isMuted(player)) {
             event.setCanceled(true);

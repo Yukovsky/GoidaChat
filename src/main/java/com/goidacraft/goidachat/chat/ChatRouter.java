@@ -17,7 +17,7 @@ public final class ChatRouter {
     private ChatRouter() {}
 
     public static void handleLocal(ServerPlayer sender, String rawMessage, Collection<ServerPlayer> allPlayers) {
-        MentionProcessor.Result mention = MentionProcessor.process(rawMessage);
+        MentionProcessor.Result mention = MentionProcessor.process(rawMessage, sender.getServer());
         MutableComponent formatted = ChatFormatter.formatLocal(sender, mention.component());
 
         int radius = PluginConfig.localRadius();
@@ -52,7 +52,7 @@ public final class ChatRouter {
             return;
         }
 
-        MentionProcessor.Result mention = MentionProcessor.process(rawMessage);
+        MentionProcessor.Result mention = MentionProcessor.process(rawMessage, sender.getServer());
         MutableComponent formatted = ChatFormatter.formatGlobal(sender, mention.component());
 
         List<ServerPlayer> recipients = new ArrayList<>();
@@ -68,7 +68,7 @@ public final class ChatRouter {
     }
 
     public static void handleAdmin(ServerPlayer sender, String rawMessage, Collection<ServerPlayer> allPlayers) {
-        MentionProcessor.Result mention = MentionProcessor.process(rawMessage);
+        MentionProcessor.Result mention = MentionProcessor.process(rawMessage, sender.getServer());
         MutableComponent formatted = ChatFormatter.formatAdmin(sender, mention.component());
 
         List<ServerPlayer> recipients = new ArrayList<>();

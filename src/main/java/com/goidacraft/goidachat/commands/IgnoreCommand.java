@@ -3,6 +3,7 @@ package com.goidacraft.goidachat.commands;
 import com.goidacraft.goidachat.data.IgnoreStorage;
 import com.goidacraft.goidachat.data.PlayerSessionCache;
 import com.goidacraft.goidachat.util.ColorUtil;
+import com.goidacraft.goidachat.util.VanishCompat;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -32,7 +33,8 @@ public class IgnoreCommand {
         String targetName = StringArgumentType.getString(ctx, "player");
 
         UUID targetId = PlayerSessionCache.getUuid(targetName);
-        if (targetId == null) {
+        ServerPlayer target = targetId != null && player.server != null ? player.server.getPlayerList().getPlayer(targetId) : null;
+        if (targetId == null || (target != null && VanishCompat.isVanished(target, player))) {
             player.sendSystemMessage(ColorUtil.parse("&cИгрок не в сети."));
             return 0;
         }

@@ -31,15 +31,25 @@ public class MsgCommand {
                                     return sendPm(sender, target, StringArgumentType.getString(ctx, "message"));
                                 }))));
 
+        // Ванильные и модовые/плагинные элиасы
         dispatcher.register(Commands.literal("tell").redirect(msg));
         dispatcher.register(Commands.literal("w").redirect(msg));
+        dispatcher.register(Commands.literal("whisper").redirect(msg));
+        dispatcher.register(Commands.literal("m").redirect(msg));
+        dispatcher.register(Commands.literal("t").redirect(msg));
+        dispatcher.register(Commands.literal("pm").redirect(msg));
+
+        // Namespaced-версии (на случай если клиент или мод отправляет с namespace)
+        dispatcher.register(Commands.literal("minecraft:msg").redirect(msg));
+        dispatcher.register(Commands.literal("minecraft:tell").redirect(msg));
+        dispatcher.register(Commands.literal("minecraft:w").redirect(msg));
     }
 
     /** Отправляет ЛС с проверками (мут/спам/отдых/игнор), соцшпионом и логированием. */
     static int sendPm(ServerPlayer sender, ServerPlayer target, String rawMessage) {
-        // Вейнш-игрок нигде не выбивается — ему нельзя написать ни вручную набрав ник в /msg,
-        // ни ответом через /r на его сообщение.
-        if (target == null || VanishCompat.isVanished(target)) {
+        // Вейнш-игрок нигде не палится — если цель в вейнше и отправитель не имеет права
+        // её видеть, возвращаем точно такое же сообщение, как для несуществующего игрока.
+        if (target == null || VanishCompat.isVanished(target, sender)) {
             sender.sendSystemMessage(ColorUtil.parse("&cИгрок не найден или не в сети."));
             return 0;
         }

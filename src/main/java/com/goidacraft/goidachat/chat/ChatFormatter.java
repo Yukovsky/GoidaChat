@@ -29,12 +29,12 @@ public final class ChatFormatter {
     }
 
     public static MutableComponent formatPmOut(ServerPlayer sender, ServerPlayer target, String message) {
-        return ColorUtil.parse("&7[&eЯ &7→ &e" + VanishCompat.displayName(target) + "&7] &f")
+        return ColorUtil.parse("&7[&eЯ &7→ &e" + VanishCompat.displayName(target, sender) + "&7] &f")
                 .append(Component.literal(message));
     }
 
     public static MutableComponent formatPmIn(ServerPlayer sender, ServerPlayer target, String message) {
-        return ColorUtil.parse("&7[&e" + VanishCompat.displayName(sender) + " &7→ &eЯ&7] &f")
+        return ColorUtil.parse("&7[&e" + VanishCompat.displayName(sender, target) + " &7→ &eЯ&7] &f")
                 .append(Component.literal(message));
     }
 

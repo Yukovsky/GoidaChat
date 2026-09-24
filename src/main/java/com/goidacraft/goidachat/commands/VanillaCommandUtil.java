@@ -27,6 +27,9 @@ final class VanillaCommandUtil {
         CommandNode<CommandSourceStack> root = dispatcher.getRoot();
         for (String name : names) {
             removeChild(root, name);
+            if (!name.contains(":")) {
+                removeChild(root, "minecraft:" + name);
+            }
         }
     }
 
